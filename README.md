@@ -1,3 +1,3 @@
 # api-async
 
-Basic example of client server interaction for training.
+Basic example of client/server interaction for training.
