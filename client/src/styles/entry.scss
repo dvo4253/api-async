@@ -1,6 +1,10 @@
 
 
-//@import './pages.scss';
+//@import '../../node_modules/bootstrap/dist/css/bootstrap.css';
+//@import '../../node_modules/bootstrap/dist/css/bootstrap-grid.css';
+
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+@import '../../node_modules/bootstrap/scss/bootstrap-grid.scss';
 
 // Remove the outline around elements
 *:focus {
@@ -10,4 +14,63 @@
 body {
     margin: 0px;
     background-color: #FFFFFF;
+}
+
+.loader {
+  margin: 0 auto;
+  position: relative;
+
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin .75s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+.department-jumbotron {
+  margin-top: 3vh;
+  background: white;
+}
+
+.header-row {
+  height: 15vh;
+}
+
+#departments-list {
+  margin: 0vw 5vw;
+  font-size: 2rem;
+}
+
+.department-col {
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+  color: $gray-800;
+}
+.department-col:hover {
+  color: $primary;
+  cursor: pointer;
+}
+
+.employee-heading {
+  font-size: 2rem;
+}
+
+.employee-row {
+  margin-left: 1vw;
+  padding-top: .5vw;
+  padding-bottom: .5vw;
 }

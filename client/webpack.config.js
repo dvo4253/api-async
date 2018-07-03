@@ -35,7 +35,7 @@ const writeToDisk = new DiskPlugin({
 module.exports = {
   entry: {
     app: [
-      './src/js/index.js'
+      './src/js/index.js', './src/styles/entry.scss'
     ]
   },
   output: {

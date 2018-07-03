@@ -1,15 +1,34 @@
 import express from 'express';
 import mysql from 'mysql';
 import { QUERY_MAX_PER_PAGE } from '../constants';
+import { getConnection, executeQuery } from '../../utils/index';
+import { getEmployeesByDeptQuery } from './queries';
+
 const apiRouter = express.Router();
 
 apiRouter.get('/employees', (req, res) => {
-  const { perPage, page } = req.query;
 
-  getEmployees(perPage, page)
+  let dbRequest = () => { }
+  let dbRequestParams = {};
+
+  const { perPage, page, dept } = req.query;
+
+
+  if (perPage && page) {
+    dbRequest = getEmployees;
+    dbRequestParams = { perPage, page };
+  }
+  else if (dept) {
+    dbRequest = getEmployeesByDept
+    dbRequestParams = { dept }
+  }
+  else {
+
+  }
+  dbRequest(dbRequestParams)
     .then(results => {
 
-      res.status(200).send({ count: results.length, data: results });
+      res.status(200).send(results);
     })
     .catch(error => {
       console.log(error)
@@ -19,9 +38,9 @@ apiRouter.get('/employees', (req, res) => {
 
 });
 
-const getEmployees = (perPage, page) => {
+const getEmployees = (params) => {
   return new Promise((resolve, reject) => {
-
+    const { perPage, page } = params;
     const perPageNum = Math.min(parseInt(perPage), QUERY_MAX_PER_PAGE);
     const offSet = perPageNum * page;
 
@@ -66,6 +85,17 @@ const getEmployees = (perPage, page) => {
   })
 }
 
+const getEmployeesByDept = async (params) => {
+  try {
+    const { dept } = params
+    const connection = await getConnection();
+    const queryParams = ['2018-07-03', '2018-07-03', '2018-07-03', '2018-07-03', '2018-07-03', '2018-07-03', dept]
+    return await executeQuery(connection, getEmployeesByDeptQuery, queryParams)
 
+  }
+  catch (error) {
+    throw new Error(error);
+  }
+}
 
 export default apiRouter;
